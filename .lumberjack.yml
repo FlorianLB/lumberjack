@@ -1,0 +1,10 @@
+ip: '192.168.66.100' #Need to be changed also in inventories/vagrant
+ssh_port: '22110'
+
+host_name: 'myapp-vagrant'
+
+box_name: geerlingguy/centos7
+box_url: https://atlas.hashicorp.com/geerlingguy/boxes/centos7/versions/1.0.6/providers/virtualbox.box
+
+ram: 2048
+proc: 1

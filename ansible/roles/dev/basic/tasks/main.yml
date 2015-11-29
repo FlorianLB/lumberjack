@@ -1,0 +1,8 @@
+---
+
+- name: Install basic packages for development
+  yum: pkg={{ item }} state=present
+  with_items:
+    - git
+    - nano
+    - htop

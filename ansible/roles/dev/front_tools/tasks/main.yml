@@ -1,0 +1,23 @@
+---
+
+- name: Install development tools
+  yum: pkg={{ item }} state=latest
+  with_items:
+    - ruby
+    - rubygems
+    - ruby-devel
+
+- name: Install Bundler globally
+  gem: name=bundler state=latest user_install=no
+
+- name: Install NodeJS
+  yum: name=nodejs
+
+- name: Install NPM
+  yum: name=npm
+
+- name: Install Grunt and Bower globally
+  npm: name={{ item }} global=yes
+  with_items:
+    - grunt-cli
+    - bower

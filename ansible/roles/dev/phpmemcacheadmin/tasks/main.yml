@@ -1,0 +1,17 @@
+---
+
+- stat: path={{ phpmemcacheadmin_install_dir }}/phpmemcacheadmin
+  register: phpmemcacheadmin_stat
+
+- name: Unarchive
+  unarchive: src=phpmemcacheadmin-master.tar.gz dest=/tmp copy=yes
+  when: phpmemcacheadmin_stat.stat.exists == false
+
+- name: Move to final directory
+  shell: mv /tmp/phpmemcacheadmin-master {{ phpmemcacheadmin_install_dir }}/phpmemcacheadmin
+  when: phpmemcacheadmin_stat.stat.exists == false
+
+- name: Copy vhost
+  template: src=vhost.conf.j2 dest=/etc/httpd/conf.d/phpmemcacheadmin.conf
+  notify:
+    - restart apache

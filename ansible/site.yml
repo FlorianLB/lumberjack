@@ -1,0 +1,25 @@
+---
+
+- name: Main playbook
+  hosts: all
+  become: yes
+  vars_files:
+    - vars/mysql.yml
+    - vars/nginx.yml
+  roles:
+    - { role: selinux,   when: ansible_os_family == 'RedHat' }
+    - { role: app,       tags: [app] }
+    - { role: lemp,      tags: [lemp] }
+    - { role: composer,  tags: [composer] }
+    - { role: memcached, tags: [memcached] }
+
+- name: Add dev tools
+  hosts: development
+  become: yes
+  roles:
+    - { role: dev/basic,       tags: [dev, dev_basic] }
+    - { role: dev/mailhog,     tags: [dev, mailhog] }
+    - { role: dev/front_tools, tags: [dev, front_tools] }
+    # - { role: dev/dashboard,   tags: [dev, dashboard] }
+
+

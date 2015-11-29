@@ -1,0 +1,20 @@
+---
+
+- name: Ensure document root exists
+  file: path={{ dashboard_doc_root }} state=directory group=apache owner=apache
+
+- name: Copy simple PHP files
+  copy: src={{ item }} dest={{ dashboard_doc_root }}/{{ item }}
+  with_items:
+    - opcache.php
+    - phpinfo.php
+
+- name: Templatize static files
+  template: src={{ item }}.j2 dest={{ dashboard_doc_root }}/{{ item }}
+  with_items:
+    - index.html
+
+- name: Copy vhost
+  template: src=vhost.conf.j2 dest=/etc/httpd/conf.d/dashboard.conf
+  notify:
+    - restart apache

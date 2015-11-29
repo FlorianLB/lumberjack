@@ -1,0 +1,23 @@
+server {
+    listen 80;
+    server_name {{ host_name }};
+
+    root         /var/www/app;
+    access_log   {{ nginx_log_dir }}/{{ host_name }}-access.log;
+    error_log    {{ nginx_log_dir }}/{{ host_name }}-error.log;
+
+    location / {
+        # try to serve file directly, fallback to app.php
+        try_files $uri /app.php$is_args$args;
+    }
+
+    location ~ ^/(.*)\.php(/|$) {
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        #NOTE: You should have "cgi.fix_pathinfo = 0;" in php.ini
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_intercept_errors on;
+        fastcgi_pass   127.0.0.1:9000;
+        fastcgi_index  index.php;
+    }
+}

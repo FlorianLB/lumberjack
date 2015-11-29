@@ -1,0 +1,26 @@
+---
+
+dependencies:
+    - role: galaxy/geerlingguy.nginx
+      tags: [nginx]
+
+    - role: galaxy/geerlingguy.php
+      tags: [php]
+      php_enable_webserver: false
+      php_enable_php_fpm: true
+      php_opcache_enabled_in_ini: true
+      php_enable_apc: false
+
+    - role: galaxy/geerlingguy.mysql
+      tags: [db]
+      # We have to override many vars cause EL7+ drop mysql in favor of maria
+      mysql_packages:
+        - mariadb
+        - mariadb-server
+        - mariadb-libs
+        - MySQL-python
+        - perl-DBD-MySQL
+      mysql_daemon: mariadb
+      mysql_log_error: /var/log/mariadb/mariadb.log
+      mysql_syslog_tag: mariadb
+      mysql_pid_file: /var/run/mariadb/mariadb.pid

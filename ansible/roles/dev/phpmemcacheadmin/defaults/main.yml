@@ -1,0 +1,6 @@
+---
+
+phpmemcacheadmin_port: 8081
+
+phpmemcacheadmin_install_dir: /var/www/html
+phpmemcacheadmin_doc_root: "{{ phpmemcacheadmin_install_dir }}/phpmemcacheadmin"

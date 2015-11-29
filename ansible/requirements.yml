@@ -1,0 +1,11 @@
+- src: geerlingguy.php
+  path: roles/galaxy/
+
+- src: geerlingguy.nginx
+  path: roles/galaxy/
+
+- src: geerlingguy.mysql
+  path: roles/galaxy/
+
+- src: geerlingguy.memcached
+  path: roles/galaxy/

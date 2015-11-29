@@ -1,0 +1,8 @@
+---
+
+- name: Add app vhost config file
+  template:
+    src: app_vhost.conf.j2
+    dest: "{{ nginx_vhost_path }}/app.conf"
+    mode: 0644
+  notify: restart nginx

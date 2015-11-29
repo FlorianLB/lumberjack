@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Dashboard</title>
+    <style type="text/css">
+        body {
+            background: #F2F4F8;
+            color: #272E3D;
+        }
+        h1, h2 {text-align: center;}
+
+        table {border-collapse: collapse; border-spacing: 0px; margin: 0 auto;}
+
+        td, th {
+            border: 1px solid #E1E6EF;
+            padding: 8px;
+            text-align: center;
+            background: #fff;
+        }
+        th a {color: #374767; text-decoration: none;}
+        th a:hover {text-decoration: underline;}
+    </style>
+</head>
+<body>
+    <h1>Tools</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th><a href="http://{{ public_fqdn }}:8025">MailHog</a></th>
+                <th><a href="http://{{ public_fqdn }}:{{ phpmemcacheadmin_port }}">PHPMemcacheAdmin</a></th>
+                <th><a href="http://{{ public_fqdn }}:{{ dashboard_port }}/phpinfo.php">PHP info</a></th>
+                <th><a href="http://{{ public_fqdn }}:{{ dashboard_port }}/opcache.php">Opcache info</a></th>
+            </tr>
+        </thead>
+    </table>
+</body>
+</html>

@@ -1,0 +1,6 @@
+---
+
+dashboard_port: 1000
+
+dashboard_install_dir: /var/www/html
+dashboard_doc_root: "{{ dashboard_install_dir }}/dashboard"

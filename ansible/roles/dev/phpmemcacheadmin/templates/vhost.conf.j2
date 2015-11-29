@@ -1,0 +1,19 @@
+Listen {{ phpmemcacheadmin_port }}
+
+<VirtualHost *:{{ phpmemcacheadmin_port }}>
+    DocumentRoot {{ phpmemcacheadmin_doc_root }}
+    ServerName {{ public_fqdn }}
+
+    ProxyPassMatch ^/(.*\.php)$ fcgi://{{ php_fpm_listen }}{{ phpmemcacheadmin_doc_root }}/$1
+
+    <Directory {{ phpmemcacheadmin_doc_root }}>
+        AllowOverride All
+        Options -Indexes +FollowSymLinks
+        Require all granted
+
+        DirectoryIndex index.php
+    </Directory>
+
+    ErrorLog "logs/phpmemcacheadmin-error_log"
+    CustomLog "logs/phpmemcacheadmin-access_log" combined
+</VirtualHost>

@@ -1,0 +1,20 @@
+#!/bin/sh
+
+# script/provision: Provision
+
+set -e
+
+cd "$(dirname "$0")/.."
+
+if [ -n "$1" ]; then
+    echo "===> Provision Vagrant VM with tags '$1'"
+
+    ansible-playbook --private-key=.vagrant/machines/default/virtualbox/private_key -u vagrant -i ansible/inventories/vagrant ansible/site.yml -t $1
+
+else
+    echo "===> Launching Vagrant VM..."
+    vagrant up --no-provision
+
+    echo "===> Provision Vagrant VM..."
+    vagrant provision
+fi

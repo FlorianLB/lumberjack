@@ -1,0 +1,20 @@
+Listen {{ dashboard_port }}
+
+<VirtualHost *:{{ dashboard_port }}>
+    DocumentRoot {{ dashboard_doc_root }}
+    ServerName {{ public_fqdn }}
+
+    ProxyPassMatch ^/(.*\.php)$ fcgi://{{ php_fpm_listen }}{{ dashboard_doc_root }}/$1
+
+
+    <Directory {{ dashboard_doc_root }}>
+        AllowOverride All
+        Options -Indexes +FollowSymLinks
+        Require all granted
+
+        DirectoryIndex index.html
+    </Directory>
+
+    ErrorLog "logs/dashboard-error_log"
+    CustomLog "logs/dashboard-access_log" combined
+</VirtualHost>
